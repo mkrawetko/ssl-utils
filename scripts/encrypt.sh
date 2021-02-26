@@ -10,4 +10,6 @@ openssl pkcs12 -in identity.p12 -nokeys -password "pass:${keyPassword:?}" -out c
 
 read -r -s textToEncrypt
 # encrypt
-echo "$textToEncrypt" | openssl rsautl -encrypt -inkey cert.pem -certin | base64
+base64Command="base64 -w0"
+if [[ "$OSTYPE" == "darwin"* ]]; then base64Command="base64 -b0"; fi
+echo "$textToEncrypt" | openssl rsautl -encrypt -inkey cert.pem -certin | $base64Command
