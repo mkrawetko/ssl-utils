@@ -31,6 +31,8 @@ class EncryptDecryptBashTest {
 }
 
 private fun bash(target: String): String =
-    ProcessBuilder("bash", "-c", target).start().inputStream.reader(UTF_8).use {
-        it.readText()
-    }
+    ProcessBuilder("bash", "-c", target).start()
+        .apply { errorStream.reader(UTF_8).use { println("errorStreamOutput: ${it.readText()}") } }
+        .inputStream.reader(UTF_8).use {
+            it.readText()
+        }
