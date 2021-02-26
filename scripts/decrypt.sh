@@ -10,4 +10,4 @@ openssl pkcs12 -in identity.p12 -nodes -nocerts -password "pass:${keyPassword:?}
 
 read -r -s encryptedText
 # base64 decode encrypted text and decrypt
-echo "$encryptedText" | base64 -D | openssl rsautl -decrypt -inkey private_key.pem
+echo "$encryptedText" | base64 -d | openssl rsautl -decrypt -inkey private_key.pem
